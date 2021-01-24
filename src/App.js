@@ -2,12 +2,7 @@ import backgroundImage from '../src/assets/pexels-lumn-167684.jpg'
 
 function App() {
   return (
-    <div className="container mx-auto" style={{
-      backgroundImage: `url(${backgroundImage})`,
-      backgroundPosition: 'center',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat'
-    }}>
+    <div className="container mx-auto">
       <div className="h-screen p-8 sm:p-24 text-white grid grid grid-cols-3 gap-4">
         <div className="quote-container col-span-full sm:col-span-2 flex items-start">
           <div>
