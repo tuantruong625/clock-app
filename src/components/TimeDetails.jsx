@@ -1,4 +1,10 @@
-function TimeDetails({ showTimeDetails })  {
+import moment from 'moment'
+
+function TimeDetails({ showTimeDetails, today }) {
+  const weekOfYear = moment(today).week()
+  const dayOfYear = moment(today).dayOfYear()
+  const dayOfWeek = moment(today).day() + 1
+  
  return (
    showTimeDetails ?
      <div className="details-container col-span-full bg-gray-100 sm:p-24 sm:py-0">
@@ -9,15 +15,15 @@ function TimeDetails({ showTimeDetails })  {
          </p>
          <p className="text-gray-400 uppercase flex justify-between text-xs py-3 tracking-wide sm:flex-col">
            day of the year
-           <span className="text-gray-800 font-bold text-lg sm:text-4xl sm:pt-4">295</span>
+           <span className="text-gray-800 font-bold text-lg sm:text-4xl sm:pt-4">{dayOfYear}</span>
          </p>
          <p className="text-gray-400 uppercase flex justify-between text-xs py-3 tracking-wide sm:flex-col">
            day of the week
-           <span className="text-gray-800 font-bold text-lg sm:text-4xl sm:pt-4">5</span>
+           <span className="text-gray-800 font-bold text-lg sm:text-4xl sm:pt-4">{dayOfWeek}</span>
          </p>
          <p className="text-gray-400 uppercase flex justify-between text-xs py-3 tracking-wide sm:flex-col">
            week number
-           <span className="text-gray-800 font-bold text-lg sm:text-4xl sm:pt-4">42</span>
+           <span className="text-gray-800 font-bold text-lg sm:text-4xl sm:pt-4">{ weekOfYear}</span>
          </p>
        </div>
      </div>

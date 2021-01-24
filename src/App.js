@@ -2,20 +2,31 @@ import React from 'react';
 import axios from 'axios'
 import TimeDetails from '../src/components/TimeDetails'
 import useToggle from '../src/utils/utils'
+import moment from 'moment'
 
 function App() {
   const [showTimeDetails, setTimeDetails] = useToggle()
   const [quote, setQuote] = React.useState(null)
+  const [today, setDate] = React.useState(new Date()); // Save the current date to be able to trigger an update
 
   const getRandomQuote = React.useCallback(async () => {
     const response = await axios.get('https://api.quotable.io/random')
     setQuote(response.data)
   }, [])
 
+
   React.useEffect(() => {
     getRandomQuote();
+    const timer = setInterval(() => {
+      setDate(new Date());
+    }, 60 * 1000);
+
+    return () => {
+      clearInterval(timer);
+    }
   }, [getRandomQuote])
 
+  const time = moment(today).format('HH:hh')
 
   return (
     <div className="container mx-auto">
@@ -31,10 +42,7 @@ function App() {
         <div className="col-span-full self-end flex flex-col sm:flex-row sm:justify-between	sm:items-end p-8 sm:p-24">
           <div className="location-info pb-5">
             <p className="uppercase font-light text-gray-100">good morning, it's currently</p>
-            <p className="py-5 font-bold text-8xl uppercase">
-              11:11
-              <span className="text-base font-light text-gray-400">est</span>
-            </p>
+            <p className="py-5 font-bold text-8xl uppercase">{time}</p>
             <p className="uppercase">in kitchener, ontario</p>
           </div>
 
@@ -46,7 +54,7 @@ function App() {
           </div>
         </div>
 
-        <TimeDetails showTimeDetails={showTimeDetails} />
+        <TimeDetails showTimeDetails={showTimeDetails} today={today} />
       </div>
     </div >
   );
