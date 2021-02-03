@@ -1,9 +1,9 @@
 import moment from 'moment'
 
-function TimeDetails({ showTimeDetails, today }) {
-  const weekOfYear = moment(today).week()
-  const dayOfYear = moment(today).dayOfYear()
-  const dayOfWeek = moment(today).day() + 1
+function TimeDetails({ showTimeDetails, date }) {
+  const weekOfYear = moment(date).week()
+  const dayOfYear = moment(date).dayOfYear()
+  const dayOfWeek = moment(date).day() + 1
   
  return (
    showTimeDetails ?

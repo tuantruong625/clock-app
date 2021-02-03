@@ -2,31 +2,34 @@ import React from 'react';
 import axios from 'axios'
 import TimeDetails from '../src/components/TimeDetails'
 import useToggle from '../src/utils/utils'
-import moment from 'moment'
 
 function App() {
   const [showTimeDetails, setTimeDetails] = useToggle()
   const [quote, setQuote] = React.useState(null)
-  const [today, setDate] = React.useState(new Date()); // Save the current date to be able to trigger an update
+  const [date, setDate] = React.useState(new Date())
 
   const getRandomQuote = React.useCallback(async () => {
     const response = await axios.get('https://api.quotable.io/random')
     setQuote(response.data)
   }, [])
 
+  const refreshClock = React.useCallback(() => {
+    setInterval(() => {
+      setDate(new Date())
+    }, 60 * 1000);
+  }, [])
 
   React.useEffect(() => {
     getRandomQuote();
-    const timer = setInterval(() => {
-      setDate(new Date());
-    }, 60 * 1000);
+    refreshClock();
 
     return () => {
-      clearInterval(timer);
+      clearInterval(refreshClock);
     }
-  }, [getRandomQuote])
+  }, [getRandomQuote, refreshClock])
 
-  const time = moment(today).format('HH:hh')
+  const getHours = date.getHours().toString()
+  const getMinutes = date.getMinutes().toString()
 
   return (
     <div className="container mx-auto">
@@ -42,7 +45,7 @@ function App() {
         <div className="col-span-full self-end flex flex-col sm:flex-row sm:justify-between	sm:items-end p-8 sm:p-24">
           <div className="location-info pb-5">
             <p className="uppercase font-light text-gray-100">good morning, it's currently</p>
-            <p className="py-5 font-bold text-8xl uppercase">{time}</p>
+            <p className="py-5 font-bold text-8xl uppercase">{getHours}:{getMinutes}</p>
             <p className="uppercase">in kitchener, ontario</p>
           </div>
 
@@ -54,7 +57,7 @@ function App() {
           </div>
         </div>
 
-        <TimeDetails showTimeDetails={showTimeDetails} today={today} />
+        <TimeDetails showTimeDetails={showTimeDetails} date={date} />
       </div>
     </div >
   );
