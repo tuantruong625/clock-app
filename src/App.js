@@ -9,6 +9,7 @@ function App() {
   const [quote, setQuote] = React.useState(null)
   const [date, setDate] = React.useState(new Date())
   const [loading, setLoading] = React.useState('')
+  const [location, setLocation] = React.useState()
 
   const getRandomQuote = React.useCallback(async () => {
     setLoading('Loading...')
@@ -27,9 +28,17 @@ function App() {
     }, 60 * 1000);
   }, [])
 
+  const getLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position.coords.latitude)
+      console.log(position.coords.longitude)
+    })
+  }
+
   React.useEffect(() => {
     getRandomQuote();
     refreshClock();
+    getLocation();
 
     return () => {
       clearInterval(refreshClock);
@@ -37,6 +46,22 @@ function App() {
   }, [getRandomQuote, refreshClock])
 
   const time = moment(date).format('HH:mm')
+
+  const Greeting = () => {
+    let message = 'good morning';
+
+    if (date.getHours() > 17) {
+      message = 'good evening'
+    }
+
+    if (date.getHours() > 11) {
+      message = 'good afternoon'
+    }
+
+    return (
+      <p className="uppercase font-light text-gray-100">{message}, its currently</p>
+    )
+  }
 
   return (
     <div className="container mx-auto">
@@ -57,7 +82,8 @@ function App() {
 
         <div className="col-span-full self-end flex flex-col sm:flex-row sm:justify-between	sm:items-end p-8 sm:p-24">
           <div className="location-info pb-5">
-            <p className="uppercase font-light text-gray-100">good morning, it's currently</p>
+            <Greeting></Greeting>
+            {/* <p className="uppercase font-light text-gray-100">{greeting}</p> */}
             <p className="py-5 font-bold text-8xl uppercase">{time}</p>
             <p className="uppercase">in kitchener, ontario</p>
           </div>
