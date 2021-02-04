@@ -9,7 +9,6 @@ import TimeDetails from '../src/components/TimeDetails'
 function App() {
   const [showTimeDetails, setTimeDetails] = useToggle()
   const [date, setDate] = React.useState(new Date())
-  const [location, setLocation] = React.useState()
 
   const refreshClock = React.useCallback(() => {
     setInterval(() => {
