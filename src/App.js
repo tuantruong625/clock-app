@@ -1,26 +1,15 @@
 import React from 'react';
-import axios from 'axios'
-import TimeDetails from '../src/components/TimeDetails'
-import useToggle from '../src/utils/utils'
 import moment from 'moment'
+
+import useToggle from '../src/utils/utils'
+import Greeting from '../src/components/Greeting'
+import Quote from './components/Quote';
+import TimeDetails from '../src/components/TimeDetails'
 
 function App() {
   const [showTimeDetails, setTimeDetails] = useToggle()
-  const [quote, setQuote] = React.useState(null)
   const [date, setDate] = React.useState(new Date())
-  const [loading, setLoading] = React.useState('')
   const [location, setLocation] = React.useState()
-
-  const getRandomQuote = React.useCallback(async () => {
-    setLoading('Loading...')
-    try {
-      const response = await axios.get('https://api.quotable.io/random')
-      setQuote(response.data)
-      setLoading('')
-    } catch (e) {
-      console.log(e.message)
-    }
-  }, [])
 
   const refreshClock = React.useCallback(() => {
     setInterval(() => {
@@ -36,54 +25,24 @@ function App() {
   }
 
   React.useEffect(() => {
-    getRandomQuote();
     refreshClock();
     getLocation();
 
     return () => {
       clearInterval(refreshClock);
     }
-  }, [getRandomQuote, refreshClock])
+  }, [refreshClock])
 
   const time = moment(date).format('HH:mm')
-
-  const Greeting = () => {
-    let message = 'good morning';
-
-    if (date.getHours() > 17) {
-      message = 'good evening'
-    }
-
-    if (date.getHours() > 11) {
-      message = 'good afternoon'
-    }
-
-    return (
-      <p className="uppercase font-light text-gray-100">{message}, its currently</p>
-    )
-  }
 
   return (
     <div className="container mx-auto">
       <div className="h-screen text-white grid grid-cols-3 gap-4">
-        <div className="quote-container p-8 sm:p-24 col-span-full sm:col-span-2 flex items-start">
-          <div>
-            {
-              quote ? (
-                <>
-                  <p className="text-gray-100 sm:text-lg">"{quote?.content}"</p>
-                  <p className="pt-3 sm:text-lg">{quote?.author}</p>
-                </>
-              ) : <p className="text-gray-100 sm:text-lg">{loading}</p>
-            }
-          </div>
-          <button className="pl-3" onClick={getRandomQuote}>⟳</button>
-        </div>
+        <Quote />
 
         <div className="col-span-full self-end flex flex-col sm:flex-row sm:justify-between	sm:items-end p-8 sm:p-24">
           <div className="location-info pb-5">
-            <Greeting></Greeting>
-            {/* <p className="uppercase font-light text-gray-100">{greeting}</p> */}
+            <Greeting date={date} />
             <p className="py-5 font-bold text-8xl uppercase">{time}</p>
             <p className="uppercase">in kitchener, ontario</p>
           </div>
