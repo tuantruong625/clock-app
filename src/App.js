@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import TimeDetails from '../src/components/TimeDetails'
+import Greeting from '../src/components/Greeting'
 import useToggle from '../src/utils/utils'
 import moment from 'moment'
 
@@ -47,22 +48,6 @@ function App() {
 
   const time = moment(date).format('HH:mm')
 
-  const Greeting = () => {
-    let message = 'good morning';
-
-    if (date.getHours() > 17) {
-      message = 'good evening'
-    }
-
-    if (date.getHours() > 11) {
-      message = 'good afternoon'
-    }
-
-    return (
-      <p className="uppercase font-light text-gray-100">{message}, its currently</p>
-    )
-  }
-
   return (
     <div className="container mx-auto">
       <div className="h-screen text-white grid grid-cols-3 gap-4">
@@ -82,8 +67,7 @@ function App() {
 
         <div className="col-span-full self-end flex flex-col sm:flex-row sm:justify-between	sm:items-end p-8 sm:p-24">
           <div className="location-info pb-5">
-            <Greeting></Greeting>
-            {/* <p className="uppercase font-light text-gray-100">{greeting}</p> */}
+            <Greeting date={date} />
             <p className="py-5 font-bold text-8xl uppercase">{time}</p>
             <p className="uppercase">in kitchener, ontario</p>
           </div>
