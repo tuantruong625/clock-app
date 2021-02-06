@@ -3,10 +3,10 @@ import SunnyIcon from '../assets/weather-icons/weather_icons-01.svg'
 import moment from 'moment'
 
 
-function TimeDetails({ showTimeDetails, date, weather }) {
+function TimeDetails({ showWeatherDetails, weather }) {
   const { daily } = weather
   return (
-    showTimeDetails ?
+    showWeatherDetails ?
       // <div className="details-container col-span-full bg-gray-100 sm:p-24 sm:py-0">
       <div className="details-container col-span-full bg-white text-gray-700 p-4">
         <div className="grid grid-cols-3 border-b pb-4">
