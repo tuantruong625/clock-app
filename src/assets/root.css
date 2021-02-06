@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;400;700&display=swap');
+
+body {
+ font-family: 'Spartan', sans-serif;
+}
+
 html {
  background-image: url('./pexels-lumn-167684.jpg');
  background-position: center;
