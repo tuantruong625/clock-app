@@ -56,7 +56,7 @@ function App() {
     <div className="container mx-auto">
       <div className="h-screen text-white grid grid-cols-3 gap-4">
         <Quote />
-        <div className="col-span-full self-end flex flex-col sm:flex-row sm:justify-between	sm:items-end p-8 sm:p-24">
+        <div className="col-span-full self-end flex flex-col sm:flex-row sm:justify-between	sm:items-end p-4 sm:p-16">
           <div className="location-info">
 
             <Greeting date={date} />
@@ -78,10 +78,10 @@ function App() {
               }
             </div>
 
-            <button className="bg-white text-gray-500 h-10 w-28  rounded-full flex items-center justify-between px-1" onClick={setWeatherDetails}>
+            {/* <button className="bg-white text-gray-500 h-10 w-28  rounded-full flex items-center justify-between px-1" onClick={setWeatherDetails}>
               <span className="uppercase tracking-wide pl-2">{showWeatherDetails ? 'Less' : 'More'}</span>
               <span className="bg-gray-800 rounded-full h-8 w-8 text-gray-100 flex items-center justify-center">{showWeatherDetails ? '⇧' : '⇩'}</span>
-            </button>
+            </button> */}
           </div>
         </div>
 
