@@ -17,8 +17,8 @@ const Quote = () => {
  }, [])
 
  React.useEffect(() => {
-  getRandomQuote();
-}, [getRandomQuote])
+   getRandomQuote();
+ }, [getRandomQuote])
  
  return (
   <div className="quote-container p-8 sm:p-24 col-span-full sm:col-span-2 flex items-start">
