@@ -14,7 +14,7 @@ function App() {
   const [latitude, setLatitude] = React.useState('')
   const [longitude, setLongitude] = React.useState('')
   const [weather, setWeather] = React.useState('')
-  const apiKey = 'e4e0caaee4a4f16be0f9f4d58e05756f'
+  const apiKey = process.env.REACT_APP_WEATHER_KEY
 
   const refreshClock = React.useCallback(() => {
     setInterval(() => {
