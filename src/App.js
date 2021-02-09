@@ -67,10 +67,10 @@ function App() {
             <div className="pb-5 sm:pb-0 flex items-end sm:justify-end">
               <p className="uppercase text-5xl sm:text-8xl font-thin pb-5 sm:pb-0">{weather ? parseInt(weather.current.temp) : null}&deg;</p>
               {
-                weather.current ? weather.current.weather.map(({ description }, index) => {
+                weather.current ? weather.current.weather.map(({ description, icon }, index) => {
                   return (
                     <div key={index} className="flex sm:flex-col justify-center items-center pr-5">
-                      <img src={SunnyIcon} alt="Sunny" className="w-10 sm:w-16"></img>
+                      <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt={description} className="w-10 sm:w-16"></img>
                       <p className="capitalize">{description}</p>
                     </div>
                   )
