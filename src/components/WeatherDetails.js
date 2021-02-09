@@ -1,42 +1,22 @@
 import React from 'react'
-import SunnyIcon from '../assets/weather-icons/weather_icons-01.svg'
 import moment from 'moment'
 
-
 function WeatherDetails({ showWeatherDetails, weather }) {
+  const [selected, setSelected] = React.useState('')
   const { daily } = weather
 
-  const getNavItem = (e) => {
-    console.log(e.target.innerText)
-    return e.target.innerText
+  const getNavItem = ({ target }) => {
+    return setSelected(target.innerText)
   }
 
-  const renderWeatherSection = () => {
-    switch (getNavItem()) {
-      case 'Weekly':
-        console.log('Weekly View')
-        break;
-      case 'Hourly':
-        console.log('Hourly View')
-        break;
-      case 'Details':
-        console.log('Details View')
-        break;
-
-      default:
-        break;
-    }
+  const HourlyDetails = () => {
+    return (
+      <p>Hourly</p>
+    )
   }
-  return (
-    // showWeatherDetails ?
-    <div className="details-container col-span-full p-4 rounded" style={{ backgroundColor: "rgba(255, 255, 255, .25)", backdropFilter: "blur(5px)" }}>
-      <div className="grid grid-cols-3 border-b pb-4 sm:place-items-center">
-        <p className="col-span-1" onClick={e => getNavItem(e)}>Weekly</p>
-        <p className="col-span-1" onClick={e => getNavItem(e)}>Hourly</p>
-        <p className="col-span-1" onClick={e => getNavItem(e)}>Details</p>
-      </div>
-      {/* {renderWeatherSection()} */}
 
+  const WeeklyDetails = () => {
+    return (
       <div className="weekly-forecast-container pt-2 sm:pt-5">
         <div className="grid grid-cols-1 grid-rows-8 justify-self-center sm:grid-cols-8">
           {
@@ -51,7 +31,6 @@ function WeatherDetails({ showWeatherDetails, weather }) {
                     {weather.map(({ description, icon }, index) => {
                       return (
                         <div className="p-0 m-0 flex sm:flex-col justify-center items-center" key={index}>
-                          {/* http://openweathermap.org/img/wn/10d@2x.png */}
                           <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt={description} className="w-10 sm:w-16"></img>
                           <p className="capitalize text-xs">{description}</p>
                         </div>
@@ -64,9 +43,37 @@ function WeatherDetails({ showWeatherDetails, weather }) {
           }
         </div>
       </div>
+    )
+  }
 
+  const Details = () => {
+    return (
+      <p>Details</p>
+    )
+  }
+
+  const RenderWeatherSection = () => {
+    switch (selected) {
+      case 'Weekly':
+        return <WeeklyDetails />
+      case 'Hourly':
+        return <HourlyDetails />
+      case 'Details':
+        return <Details />
+      default:
+        return <WeeklyDetails />
+    }
+  }
+  return (
+    <div className="details-container col-span-full p-4 rounded" style={{ backgroundColor: "rgba(255, 255, 255, .25)", backdropFilter: "blur(5px)" }}>
+      <div className="grid grid-cols-3 border-b pb-4 sm:place-items-center">
+        <p className="col-span-1 cursor-pointer hover:text-yellow-500" onClick={e => getNavItem(e)}>Weekly</p>
+        <p className="col-span-1 cursor-pointer hover:text-yellow-500" onClick={e => getNavItem(e)}>Hourly</p>
+        <p className="col-span-1 cursor-pointer hover:text-yellow-500" onClick={e => getNavItem(e)}>Details</p>
+      </div>
+
+      <RenderWeatherSection />
     </div>
-    // : null
   )
 }
 
