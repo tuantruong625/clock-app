@@ -1,9 +1,9 @@
 import React from 'react'
 import moment from 'moment'
 
-function WeatherDetails({ showWeatherDetails, weather }) {
+function WeatherDetails({ showWeatherDetails, weather, date }) {
   const [selected, setSelected] = React.useState('')
-  const { daily } = weather
+  const { daily, hourly } = weather
 
   const getNavItem = ({ target }) => {
     return setSelected(target.innerText)
@@ -11,14 +11,40 @@ function WeatherDetails({ showWeatherDetails, weather }) {
 
   const HourlyDetails = () => {
     return (
-      <p>Hourly</p>
+      <div className="weekly-forecast-container pt-2 sm:pt-5 col-span-full">
+        <div className="grid grid-cols-1 justify-self-center sm:grid-cols-8">
+          {
+            hourly.filter((value, index) => {
+              return index < 8
+            }).map(({ dt, temp, weather }, index) => {
+              return (
+                <div key={index} className="grid grid-cols-3 items-center	sm:grid-cols-1 sm:justify-self-center	sm:text-center">
+                  <p className="text-xs sm:text-base">{moment.unix(dt).utc().format('HH:mm')}</p>
+                  <p className="text-xs sm:text-lg">{parseInt(temp)}&deg;</p>
+                  {/* <p>{moment(date).format('HH')}</p> */}
+                  <div className="flex items-center sm:flex-col">
+                    {weather.map(({ description, icon }, index) => {
+                      return (
+                        <div className="p-0 m-0 flex sm:flex-col justify-center items-center" key={index}>
+                          <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt={description} className="w-10 sm:w-16"></img>
+                          <p className="capitalize text-xs">{description}</p>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            })
+          }
+        </div>
+      </div>
     )
   }
 
   const WeeklyDetails = () => {
     return (
       <div className="weekly-forecast-container pt-2 sm:pt-5">
-        <div className="grid grid-cols-1 grid-rows-8 justify-self-center sm:grid-cols-8">
+        <div className="grid grid-cols-1 justify-self-center sm:grid-cols-8">
           {
             daily ? daily.map(({ dt, temp, weather }, index) => {
               return (
@@ -27,7 +53,7 @@ function WeatherDetails({ showWeatherDetails, weather }) {
                   <p className="text-xs sm:text-lg">{parseInt(temp.max)}&deg;
                       <span className="font-thin text-xs sm:text-lg">{parseInt(temp.min)}&deg;</span>
                   </p>
-                  <div className="flex items-center sm:flex-col">
+                  <div className="flex items-center">
                     {weather.map(({ description, icon }, index) => {
                       return (
                         <div className="p-0 m-0 flex sm:flex-col justify-center items-center" key={index}>
