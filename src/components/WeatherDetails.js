@@ -3,7 +3,7 @@ import moment from 'moment'
 
 function WeatherDetails({ showWeatherDetails, weather, date }) {
   const [selected, setSelected] = React.useState('')
-  const { daily, hourly } = weather
+  const { daily, hourly, current } = weather
 
   const getNavItem = ({ target }) => {
     return setSelected(target.innerText)
@@ -11,7 +11,7 @@ function WeatherDetails({ showWeatherDetails, weather, date }) {
 
   const HourlyDetails = () => {
     return (
-      <div className="weekly-forecast-container pt-2 sm:pt-5 col-span-full">
+      <div className="weekly-forecast-container pt-2 sm:pt-5 col-span-full sm:pb-5">
         <div className="grid grid-cols-1 justify-self-center sm:grid-cols-8">
           {
             hourly.filter((value, index) => {
@@ -43,7 +43,7 @@ function WeatherDetails({ showWeatherDetails, weather, date }) {
 
   const WeeklyDetails = () => {
     return (
-      <div className="weekly-forecast-container pt-2 sm:pt-5">
+      <div className="weekly-forecast-container pt-2 sm:pt-5 sm:pb-5">
         <div className="grid grid-cols-1 justify-self-center sm:grid-cols-8">
           {
             daily ? daily.map(({ dt, temp, weather }, index) => {
@@ -74,7 +74,17 @@ function WeatherDetails({ showWeatherDetails, weather, date }) {
 
   const Details = () => {
     return (
-      <p>Details</p>
+      <div className="weekly-forecast-container pt-2 sm:pt-5 sm:pb-5">
+        <div className="grid grid-cols-1 justify-self-center sm:grid-cols-8">
+          {
+            daily ? daily.map(({ dt, temp, weather }, index) => {
+              return (
+                <p></p>
+              )
+            }) : null
+          }
+        </div>
+      </div>
     )
   }
 
