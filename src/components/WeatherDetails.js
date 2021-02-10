@@ -21,7 +21,6 @@ function WeatherDetails({ showWeatherDetails, weather, date }) {
                 <div key={index} className="grid grid-cols-3 items-center	sm:grid-cols-1 sm:justify-self-center	sm:text-center">
                   <p className="text-xs sm:text-base">{moment.unix(dt).utc().format('HH:mm')}</p>
                   <p className="text-xs sm:text-lg">{parseInt(temp)}&deg;</p>
-                  {/* <p>{moment(date).format('HH')}</p> */}
                   <div className="flex items-center sm:flex-col">
                     {weather.map(({ description, icon }, index) => {
                       return (
@@ -74,15 +73,47 @@ function WeatherDetails({ showWeatherDetails, weather, date }) {
 
   const Details = () => {
     return (
-      <div className="weekly-forecast-container pt-2 sm:pt-5 sm:pb-5">
+      <div className="weekly-forecast-container pt-2">
         <div className="grid grid-cols-1 justify-self-center sm:grid-cols-8">
-          {
-            daily ? daily.map(({ dt, temp, weather }, index) => {
+          <div className="flex flex-col justify-center items-center">
+            <p>Current Temp</p>
+            <p className="text-xs sm:text-base">{current.temp}</p>
+          </div>
+
+          <div className="flex flex-col justify-center items-center">
+            <p>Feels Like</p>
+            <p className="text-xs sm:text-base">{current.feels_like}</p>
+          </div>
+
+          <div className="flex flex-col justify-center items-center">
+            <p>Humidity</p>
+            <p className="text-xs sm:text-base">{current.humidity}</p>
+          </div>
+
+          <div className="flex flex-col justify-center items-center">
+            <p>Wind Speed</p>
+            <p className="text-xs sm:text-base">{current.wind_speed}</p>
+          </div>
+
+          <div className="flex flex-col justify-center items-center">
+            <p>Sunrise</p>
+            <p className="text-xs sm:text-base">{moment.unix(current.sunrise).utc().format('HH:mm')}</p>
+          </div>
+
+          <div className="flex flex-col justify-center items-center">
+            <p>Sunset</p>
+            <p className="text-xs sm:text-base">{moment.unix(current.sunset).utc().format('HH:mm')}</p>
+          </div>
+          {/* <div className="flex items-center">
+            {current.weather.map(({ main, icon }, index) => {
               return (
-                <p></p>
+                <div className="p-0 m-0 flex sm:flex-col justify-center items-center" key={index}>
+                  <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt={main} className="w-10 sm:w-16"></img>
+                  <p className="capitalize text-xs">{main}</p>
+                </div>
               )
-            }) : null
-          }
+            })}
+          </div> */}
         </div>
       </div>
     )

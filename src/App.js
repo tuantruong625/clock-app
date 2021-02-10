@@ -6,7 +6,6 @@ import useToggle from '../src/utils/utils'
 import Greeting from '../src/components/Greeting'
 import Quote from './components/Quote';
 import WeatherDetails from './components/WeatherDetails'
-import SunnyIcon from './assets/weather-icons/weather_icons-01.svg'
 
 function App() {
   const [showWeatherDetails, setWeatherDetails] = useToggle()
@@ -37,7 +36,7 @@ function App() {
     } catch (e) {
       console.log(e.message)
     }
-  }, [longitude, latitude])
+  }, [longitude, latitude, apiKey])
 
   React.useEffect(() => {
     refreshClock();
