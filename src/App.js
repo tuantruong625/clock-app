@@ -8,7 +8,7 @@ import Quote from './components/Quote';
 import WeatherDetails from './components/WeatherDetails'
 
 function App() {
-  const [showWeatherDetails, setWeatherDetails] = useToggle()
+  const [showWeatherDetails] = useToggle()
   const [date, setDate] = React.useState(new Date())
   const [latitude, setLatitude] = React.useState('')
   const [longitude, setLongitude] = React.useState('')
